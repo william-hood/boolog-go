@@ -31,6 +31,8 @@ import (
 	"github.com/google/uuid"
 )
 
+type HeaderFunction func(string) string
+
 type Boolog struct {
 	Title          string
 	forPlainText   *os.File
@@ -88,7 +90,7 @@ func (this Boolog) writeToHTML(message string, emoji string, timestamp time.Time
 	}
 
 	if this.ShowEmojis {
-		this.forPlainText.WriteString(fmt.Sprintf("<td><h2>%s</h2></td>", emoji))
+		this.Content.WriteString(fmt.Sprintf("<td><h2>%s</h2></td>", emoji))
 	}
 
 	this.Content.WriteString(fmt.Sprintf("<td>%s</td></tr>\r\n", message))
@@ -142,7 +144,7 @@ func (this Boolog) Debug(message string) error {
 	return textErr
 }
 
-func (this Boolog) Error(message string, emoji string) error {
+func (this Boolog) Error(message string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(highlight(message), EMOJI_ERROR, timestamp)
 	if htmlErr != nil {
@@ -162,11 +164,11 @@ func (this Boolog) SkipLine() error {
 	return textErr
 }
 
-func (this Boolog) showBoolog(subordinate Boolog) (string, error) {
-	return this.showBoologDetailed(subordinate, EMOJI_BOOLOG, "neutral", 0)
+func (this Boolog) ShowBoolog(subordinate Boolog) (string, error) {
+	return this.ShowBoologDetailed(subordinate, EMOJI_BOOLOG, "neutral", 0)
 }
 
-func (this Boolog) showBoologDetailed(subordinate Boolog, emoji string, style string, recurseLevel int) (string, error) {
+func (this Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style string, recurseLevel int) (string, error) {
 	var err error = nil
 	timestamp := time.Now()
 	subordinateContent := subordinate.Conclude()
@@ -180,10 +182,10 @@ func (this Boolog) showBoologDetailed(subordinate Boolog, emoji string, style st
 }
 
 func NewBoologSimple(logTitle string, htmlOutputFileName string) Boolog {
-	return NewBoolog(logTitle, htmlOutputFileName, "", "", "")
+	return NewBoolog(logTitle, htmlOutputFileName, nil, "", "")
 }
 
-func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, htmlStyling string, textOutputFileName string) Boolog {
+func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeaderFunction HeaderFunction, htmlStyling string, textOutputFileName string) Boolog {
 	result := new(Boolog)
 
 	if logTitle == "" {
@@ -208,7 +210,7 @@ func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, ht
 		result.forPlainText = plainText
 	}
 
-	{
+	if htmlOutputFileName != "" {
 		hTML, err := os.Create(htmlOutputFileName)
 		if err != nil {
 			panic(err)
@@ -223,11 +225,11 @@ func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, ht
 		result.forHTML.WriteString(htmlStyling)
 		result.forHTML.WriteString("</head>\r\n<body>\r\n")
 
-		if htmlHeader == "" {
-			htmlHeader = defaultHeader(result.Title)
+		if htmlHeaderFunction == nil {
+			htmlHeaderFunction = defaultHeader
 		}
 
-		result.forHTML.WriteString(htmlHeader)
+		result.forHTML.WriteString(htmlHeaderFunction(result.Title))
 	}
 
 	return *result
@@ -259,5 +261,5 @@ func encapsulationTag() string {
 
 func wrapAsSubordinate(boologTitle string, boologContent string, style string) string {
 	identifier := uuid.NewString()
-	return fmt.Sprintf("\r\n\r\n<div class=\"boolog %s\">\r\n<label for=\"%s\">\r\n<input id=\"$identifier\" class=\"gone\" type=\"checkbox\">\r\n<h2>%s</h2>\r\n<div class=\"%s\">\r\n%s\r\n</div></label></div>", style, identifier, boologTitle, encapsulationTag(), boologContent)
+	return fmt.Sprintf("\r\n\r\n<div class=\"boolog %s\">\r\n<label for=\"%s\">\r\n<input id=\"%s\" class=\"gone\" type=\"checkbox\">\r\n<h2>%s</h2>\r\n<div class=\"%s\">\r\n%s\r\n</div></label></div>", style, identifier, identifier, boologTitle, encapsulationTag(), boologContent)
 }

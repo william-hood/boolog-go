@@ -40,7 +40,7 @@ const CLASSIC_STYLING = `
             display: none;
         }
 
-        .memoir {
+        .boolog {
             font-family: sans-serif;
             border-radius: 0.25em;
             border: 0.1em solid black;
