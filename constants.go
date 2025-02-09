@@ -46,6 +46,6 @@ const MAX_HEADERS_TO_DISPLAY = 10
 const MAX_BODY_LENGTH_TO_DISPLAY = 500
 const STARTING_CONTENT = "<table class=\"left_justified\">\r\n"
 const BOOLOG_CONCLUDED = "Boolog Concluded"
-const TIME_FMT_DATE = "2025-02-08"
+const TIME_FMT_DATE = "2006-01-02"
 const TIME_FMT_TIME = "15:04:05.000"
 const TIME_FMT_TEXT = TIME_FMT_DATE + " " + TIME_FMT_TIME

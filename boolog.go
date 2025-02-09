@@ -37,7 +37,7 @@ type Boolog struct {
 	forHTML        *os.File
 	ShowTimeStamps bool
 	ShowEmojis     bool
-	Content        strings.Builder
+	Content        *strings.Builder
 	isConcluded    bool
 	firstEcho      bool
 }
@@ -179,7 +179,11 @@ func (this Boolog) showBoologDetailed(subordinate Boolog, emoji string, style st
 	return result, err
 }
 
-func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, htmlStyling string, textOutputFileName string) *Boolog {
+func NewBoologSimple(logTitle string, htmlOutputFileName string) Boolog {
+	return NewBoolog(logTitle, htmlOutputFileName, "", "", "")
+}
+
+func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, htmlStyling string, textOutputFileName string) Boolog {
 	result := new(Boolog)
 
 	if logTitle == "" {
@@ -191,6 +195,8 @@ func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, ht
 	result.ShowEmojis = true
 	result.isConcluded = false
 	result.firstEcho = true
+	result.Content = &strings.Builder{}
+	result.Content.WriteString(STARTING_CONTENT)
 
 	if textOutputFileName == "" {
 		result.forPlainText = os.Stdout
@@ -220,11 +226,11 @@ func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeader string, ht
 		if htmlHeader == "" {
 			htmlHeader = defaultHeader(result.Title)
 		}
+
+		result.forHTML.WriteString(htmlHeader)
 	}
 
-	result.Content.WriteString(STARTING_CONTENT)
-
-	return result
+	return *result
 }
 
 func defaultHeader(title string) string {
