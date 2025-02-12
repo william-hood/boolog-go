@@ -221,7 +221,7 @@ func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeaderFunction He
 			htmlStyling = CLASSIC_STYLING
 		}
 
-		result.forHTML.WriteString("<html>\r\n<meta charset=\"UTF-8\">\r\n<head>\r\n<title>$title</title>\r\n")
+		result.forHTML.WriteString(fmt.Sprintf("<html>\r\n<meta charset=\"UTF-8\">\r\n<head>\r\n<title>%s</title>\r\n", result.Title))
 		result.forHTML.WriteString(htmlStyling)
 		result.forHTML.WriteString("</head>\r\n<body>\r\n")
 
