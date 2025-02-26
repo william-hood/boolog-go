@@ -22,6 +22,7 @@
 package boolog
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"net/http"
@@ -32,6 +33,8 @@ import (
 
 	"github.com/google/uuid"
 )
+
+const HTTP_MESSAGE_BODY = "HTTP Req/Resp Body/Payload"
 
 func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) {
 	timestamp := time.Now()
@@ -101,16 +104,91 @@ func (this Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunctio
 
 	result.WriteString(fmt.Sprintf("<center><h2>%s</h2>", textRendition))
 
-	payload := resp.Body //GetBody() is not available on the response.
 	defer resp.Body.Close()
-
-	result.WriteString(this.renderHeadersAndBody(resp.Header, payload, callback, timestamp))
+	result.WriteString(this.renderHeadersAndBody(resp, callback, timestamp))
 
 	this.writeToHTML(result.String(), EMOJI_INCOMING, timestamp)
 	this.echoPlainText(textRendition, EMOJI_INCOMING, timestamp)
 }
 
-// TODO: Will need to figure out how to properly parse/render the headers & body
-func (this Boolog) renderHeadersAndBody(header http.Header, payload io.ReadCloser, callback CallbackFunction, timestamp time.Time) string {
+func (this Boolog) renderHeadersAndBody(resp http.Response, callback CallbackFunction, timestamp time.Time) string {
+	var result strings.Builder
+	headerMap := resp.Header
 
+	// Headers
+	if len(headerMap) > 0 {
+		result.WriteString("<br><b>Headers</b><br>")
+		var renderedHeaders strings.Builder
+		renderedHeaders.WriteString("<table class=\"gridlines\">\r\n")
+
+		for key, values := range headerMap {
+			renderedHeaders.WriteString("<tr><td>")
+			renderedHeaders.WriteString(key)
+			renderedHeaders.WriteString("</td><td>")
+
+			if len(values) < 1 {
+				renderedHeaders.WriteString("<small><i>(empty)</i></small>")
+			} else if len(values) == 1 {
+				// Attempt Base64 Decode and JSON pretty-print here.
+				renderedHeaders.WriteString(processString(key, values[0], callback))
+			} else {
+				renderedHeaders.WriteString("<table class=\"gridlines neutral\">\r\n")
+				for _, thisValue := range values {
+					renderedHeaders.WriteString("<tr><td>")
+					// Attempt Base64 Decode and JSON pretty-print here.
+					renderedHeaders.WriteString(processString(key, thisValue, callback))
+					renderedHeaders.WriteString("</td></tr>")
+				}
+				renderedHeaders.WriteString("\r\n</table>")
+			}
+
+			renderedHeaders.WriteString("</td></tr>")
+		}
+		renderedHeaders.WriteString("\r\n</table><br>")
+
+		if len(headerMap) > MAX_HEADERS_TO_DISPLAY {
+			identifier1 := uuid.NewString()
+			result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\">\r\n(show %d headers)\r\n<div class=\"%s\">\r\n", identifier1, identifier1, len(headerMap), encapsulationTag()))
+			result.WriteString(renderedHeaders.String())
+			result.WriteString("</div></label>")
+		} else {
+			result.WriteString(renderedHeaders.String())
+		}
+	} else {
+		result.WriteString("<br><br><small><i>(no headers)</i></small><br>\r\n")
+	}
+
+	// Body
+	if resp.Body == nil {
+		result.WriteString("<br><br><small><i>(no payload)</i></small></center>")
+	} else {
+		bodyBytes, err := io.ReadAll(resp.Body)
+
+		if err == nil {
+			resp.Body = io.NopCloser(bytes.NewReader((bodyBytes)))
+		}
+
+		stringPayload := string(bodyBytes)
+		payloadSize := len(stringPayload)
+		result.WriteString("<br><b>Payload</b><br></center>\r\n")
+		renderedBody := TreatAsCode(processString(HTTP_MESSAGE_BODY, stringPayload, callback))
+
+		if payloadSize > MAX_BODY_LENGTH_TO_DISPLAY {
+			identifier2 := uuid.NewString()
+			result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\">\r\n(show large payload)\r\n<div class=\"%s\">\r\n", identifier2, identifier2, encapsulationTag()))
+			result.WriteString(renderedBody)
+			result.WriteString("</div></label>")
+		} else {
+			result.WriteString(renderedBody)
+		}
+	}
+
+	return result.String()
+}
+
+func (this Boolog) ShowHttpTransaction(req http.Request, callback CallbackFunction) *http.Response {
+	this.ShowHttpRequest(req, callback)
+	resp, _ := http.DefaultClient.Do(&req)
+	this.ShowHttpResponse(*resp, callback)
+	return resp
 }
