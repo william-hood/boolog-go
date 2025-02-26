@@ -79,13 +79,38 @@ func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) 
 	defer payload.Close()
 
 	result.WriteString("<br>")
-	result.WriteString(this.renderHeadersAndBody(req.Header, payload, callback))
+	result.WriteString(this.renderHeadersAndBody(req.Header, payload, callback, timestamp))
 
 	this.writeToHTML(result.String(), EMOJI_OUTGOING, timestamp)
 	this.echoPlainText(textRendition, EMOJI_OUTGOING, timestamp)
 }
 
+func (this Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunction) {
+	var result strings.Builder
+
+	timestamp := time.Now()
+	statusCode := resp.StatusCode
+	style := "implied_bad"
+	if (statusCode > 199) && (statusCode < 300) {
+		style = "implied_good"
+	}
+
+	result.WriteString(fmt.Sprintf("<div class=\"incoming %s\">\r\n", style))
+
+	textRendition := resp.Status
+
+	result.WriteString(fmt.Sprintf("<center><h2>%s</h2>", textRendition))
+
+	payload := resp.Body //GetBody() is not available on the response.
+	defer resp.Body.Close()
+
+	result.WriteString(this.renderHeadersAndBody(resp.Header, payload, callback, timestamp))
+
+	this.writeToHTML(result.String(), EMOJI_INCOMING, timestamp)
+	this.echoPlainText(textRendition, EMOJI_INCOMING, timestamp)
+}
+
 // TODO: Will need to figure out how to properly parse/render the headers & body
-func (this Boolog) renderHeadersAndBody(header http.Header, io.ReadCloser, timestamp time.Time) string {
+func (this Boolog) renderHeadersAndBody(header http.Header, payload io.ReadCloser, callback CallbackFunction, timestamp time.Time) string {
 
 }
