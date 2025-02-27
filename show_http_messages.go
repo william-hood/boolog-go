@@ -29,7 +29,6 @@ import (
 	"net/url"
 	"strings"
 	"time"
-	"url"
 
 	"github.com/google/uuid"
 )
@@ -39,7 +38,7 @@ const HTTP_MESSAGE_BODY = "HTTP Req/Resp Body/Payload"
 func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) {
 	timestamp := time.Now()
 	reqUrl := req.URL
-	var result *strings.Builder
+	var result strings.Builder
 	params, _ := url.ParseQuery(reqUrl.RawQuery)
 
 	result.WriteString("<div class=\"outgoing implied_caution\">\r\n")
@@ -53,7 +52,7 @@ func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) 
 	identifier := uuid.NewString()
 	result.WriteString(fmt.Sprintf("<br><br><label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\"><small><i>(show complete URL)</i></small>\r\n<div class=\"%s\">\r\n", identifier, identifier, encapsulationTag()))
 
-	result.WriteString(fmt.Sprintf("<br>\r\n%s\r\n", strings.ReplaceAll(reqUrl.RawPath, "&", "&amp;")))
+	result.WriteString(fmt.Sprintf("<br>\r\n%s\r\n", strings.ReplaceAll(reqUrl.String(), "&", "&amp;")))
 	result.WriteString("</div>\r\n</label>")
 
 	if len(params) < 1 {
@@ -70,7 +69,7 @@ func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) 
 				if value == "" {
 					result.WriteString("(unset)")
 				} else {
-					processString(key, value, callback)
+					result.WriteString(processString(key, value, callback))
 				}
 			}
 			result.WriteString("</td></tr>")
@@ -78,11 +77,14 @@ func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) 
 		result.WriteString("\r\n</table>")
 	}
 
-	payload, _ := req.GetBody()
-	defer payload.Close()
+	var bodyBytes []byte
+	if req.Body != nil {
+		bodyBytes, _ = io.ReadAll(req.Body)
+		req.Body = io.NopCloser(bytes.NewReader((bodyBytes)))
+	}
 
 	result.WriteString("<br>")
-	result.WriteString(this.renderHeadersAndBody(req.Header, payload, callback, timestamp))
+	result.WriteString(this.renderHeadersAndBody(req.Header, bodyBytes, callback))
 
 	this.writeToHTML(result.String(), EMOJI_OUTGOING, timestamp)
 	this.echoPlainText(textRendition, EMOJI_OUTGOING, timestamp)
@@ -104,16 +106,20 @@ func (this Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunctio
 
 	result.WriteString(fmt.Sprintf("<center><h2>%s</h2>", textRendition))
 
-	defer resp.Body.Close()
-	result.WriteString(this.renderHeadersAndBody(resp, callback, timestamp))
+	var bodyBytes []byte
+	if resp.Body != nil {
+		bodyBytes, _ = io.ReadAll(resp.Body)
+		resp.Body = io.NopCloser(bytes.NewReader((bodyBytes)))
+	}
+
+	result.WriteString(this.renderHeadersAndBody(resp.Header, bodyBytes, callback))
 
 	this.writeToHTML(result.String(), EMOJI_INCOMING, timestamp)
 	this.echoPlainText(textRendition, EMOJI_INCOMING, timestamp)
 }
 
-func (this Boolog) renderHeadersAndBody(resp http.Response, callback CallbackFunction, timestamp time.Time) string {
+func (this Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte, callback CallbackFunction) string {
 	var result strings.Builder
-	headerMap := resp.Header
 
 	// Headers
 	if len(headerMap) > 0 {
@@ -159,15 +165,10 @@ func (this Boolog) renderHeadersAndBody(resp http.Response, callback CallbackFun
 	}
 
 	// Body
-	if resp.Body == nil {
+	if len(bodyBytes) > 1 {
 		result.WriteString("<br><br><small><i>(no payload)</i></small></center>")
 	} else {
-		bodyBytes, err := io.ReadAll(resp.Body)
-
-		if err == nil {
-			resp.Body = io.NopCloser(bytes.NewReader((bodyBytes)))
-		}
-
+		// Attempt Base64 Decode and JSON pretty-print here.
 		stringPayload := string(bodyBytes)
 		payloadSize := len(stringPayload)
 		result.WriteString("<br><b>Payload</b><br></center>\r\n")
