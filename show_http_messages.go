@@ -121,6 +121,8 @@ func (this Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunctio
 func (this Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte, callback CallbackFunction) string {
 	var result strings.Builder
 
+	this.Debug(fmt.Sprintf("bodyBytes has size of %d", len(bodyBytes)))
+
 	// Headers
 	if len(headerMap) > 0 {
 		result.WriteString("<br><b>Headers</b><br>")
@@ -165,7 +167,7 @@ func (this Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte,
 	}
 
 	// Body
-	if len(bodyBytes) > 1 {
+	if len(bodyBytes) < 1 {
 		result.WriteString("<br><br><small><i>(no payload)</i></small></center>")
 	} else {
 		// Attempt Base64 Decode and JSON pretty-print here.
