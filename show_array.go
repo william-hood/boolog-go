@@ -24,6 +24,10 @@ package boolog
 import (
 	"fmt"
 	"reflect"
+	"strings"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 func (this Boolog) ShowArray(target []any, targetVariableName string, recurseLevel int) string {
@@ -33,12 +37,48 @@ func (this Boolog) ShowArray(target []any, targetVariableName string, recurseLev
 
 	targetValue := reflect.ValueOf(&target).Elem()
 	targetType := targetValue.Type()
-
 	targetTypeName := targetType.Name()
 
 	if len(target) < 1 {
 		return fmt.Sprintf("<div class=\"outlined\">(%s \"%s\" is empty)</div>", targetTypeName, targetVariableName)
 	}
 
-	return "TODO"
+	timestamp := time.Now()
+
+	result := this.beginShow(timestamp, targetTypeName, targetVariableName, "neutral", recurseLevel)
+	content := new(strings.Builder)
+	content.WriteString("<br><table class=\"gridlines\">\r\n")
+
+	for index, value := range target {
+		content.WriteString("<tr><td>")
+		content.WriteString(fmt.Sprintf("%d", index))
+		content.WriteString("</td><td>")
+		content.WriteString(this.show(value, fmt.Sprintf("Array slot #%d", index), recurseLevel+1))
+		content.WriteString("</td></tr>\r\n")
+	}
+
+	content.WriteString("\r\n</table><br>")
+
+	if len(target) > MAX_OBJECT_FIELDS_TO_DISPLAY {
+		identifier2 := uuid.NewString()
+		result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\">\r\n(show %d items)\r\n<div class=\"%s\">\r\n", identifier2, identifier2, len(target), encapsulationTag()))
+		result.WriteString(content.String())
+		result.WriteString("</div></label>")
+	} else {
+		result.WriteString(content.String())
+	}
+
+	if recurseLevel > 0 {
+		result.WriteString("\r\n</div></label>")
+	}
+
+	result.WriteString("\r\n</div>")
+
+	rendition := result.String()
+
+	if recurseLevel < 1 {
+		this.writeToHTML(rendition, EMOJI_OBJECT, timestamp)
+	}
+
+	return rendition
 }

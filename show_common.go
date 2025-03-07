@@ -24,30 +24,60 @@ package boolog
 import (
 	"fmt"
 	"reflect"
+	"slices"
 	"strings"
 	"time"
+
+	"github.com/google/uuid"
 )
+
+var nonRecurseTypes = []string{"string", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr", "bool", "byte", "rune", "float32", "float64", "complex64", "complex128"}
 
 func shouldRecurse(candidate any) bool {
 	if candidate == nil {
 		return false
 	}
 
-	if reflect.TypeOf(candidate).String() == "string" {
+	if slices.Contains(nonRecurseTypes, reflect.TypeOf(candidate).String()) {
 		return false
 	}
 
-	// TODO: Probably need to exhaust all "primitive" types with the check above.
 	return true
 }
 
-// shouldRender() from the Kotlin version probably doesn't apply here.
+// shouldRender() from the Kotlin version probably doesn't apply here as unexported fields are not visible to reflection in Go.
 
 func (this Boolog) beginShow(timestamp time.Time, typeName string, variableName string, style string, recurseLevel int) *strings.Builder {
 	result := new(strings.Builder)
 	result.WriteString(fmt.Sprintf("\r\n<div class=\"object %s centered\">\r\n", style))
 
-	// TODO
+	if recurseLevel > 0 {
+		identifier := uuid.NewString()
+		result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" class=\"gone\" type=\"checkbox\">\r\n", identifier, identifier))
+	}
+	result.WriteString(fmt.Sprintf("<h2>%s</h2>\r\n<small>", typeName))
+	if variableName != NAMELESS {
+		result.WriteString("\"")
+	}
+	result.WriteString(variableName)
+	if variableName != NAMELESS {
+		result.WriteString("\"")
+	}
+	result.WriteString("</small><br>\r\n")
+
+	if recurseLevel > 0 {
+		result.WriteString(fmt.Sprintf("<div class=\"%s\">\r\n", encapsulationTag()))
+	}
+
+	this.echoPlainText(fmt.Sprintf("Showing %s: %s (details in HTML log)", typeName, variableName), EMOJI_OBJECT, timestamp)
 
 	return result
+}
+
+func (this Boolog) show(target any, targetVariableName string, recurselevel int) string {
+
+	// TODO: This must exhaust all more appropriate functions before defaulting just logging it.
+	// "Just logging it" will be more complicated than the Kotlin version, since not everything has .toString()
+
+	return "TODO"
 }
