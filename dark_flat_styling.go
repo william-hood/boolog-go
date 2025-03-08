@@ -21,8 +21,8 @@
 
 package boolog
 
-// TODO
-const DARK_FLAT_STYLING = `
+// TODO : WORK IN PROGRESS
+const THEME_DARK_FLAT = `
     <style>
         html {
             font-family: sans-serif
@@ -44,72 +44,66 @@ const DARK_FLAT_STYLING = `
         .boolog {
             font-family: sans-serif;
             border-radius: 0.25em;
-            border: 0.1em solid black;
             display: inline-block;
-            background-image: linear-gradient(to bottom right, white, WhiteSmoke);
+            background-image: linear-gradient(to bottom right, #3A3B3C, #34282C);
+            background-color: #3A3B3C;
         }
 
         .failing_test_result {
-            background-image: linear-gradient(to bottom right, MistyRose, salmon);
+            background-color: #FF0000;
+            color: #000000;
         }
 
         .inconclusive_test_result {
-            background-image: linear-gradient(to bottom right, LemonChiffon, Moccasin);
+            background-color: #FFDB58;
+            color: #000000;
         }
 
         .passing_test_result {
-            background-image: linear-gradient(to bottom right, honeydew, palegreen);
+            background-color: #32CD32;
+            color: #000000;
         }
 
         .implied_good {
-            background-image: linear-gradient(to bottom right, mintcream, honeydew);
+            background-color: #A0D6B4;
+            color: #000000;
         }
 
         .implied_caution {
-            background-image: linear-gradient(to bottom right, LemonChiffon, oldlace);
+            background-color: #FFFACD;
+            color: #000000;
         }
 
         .implied_bad {
-            background-image: linear-gradient(to bottom right, Seashell, LavenderBlush);
+            background-color: #FA8072;
+            color: #000000;
         }
 
         .neutral {
-            background-image: linear-gradient(to bottom right, White, LightGrey);
+            background-color: #728FCE;
+            color: #000000;
         }
 
         .old_parchment {
-            background-image: radial-gradient(LightGoldenrodYellow, Cornsilk, Wheat);
+            background-color: #FFFFC2;
+            color: #000000;
         }
 
         .plate {
-            background-image: radial-gradient(GhostWhite, LightSteelBlue);
+            background-color: #5E7D7E;
+            color: #000000;
         }
 
         .exception {
-            background-image: linear-gradient(to bottom right, yellow, salmon);
-        }
-
-        .decaf_green {
-            background-image: linear-gradient(to bottom right, #B0C6B2, #83A787);
-        }
-
-        .decaf_orange {
-            background-image: linear-gradient(to bottom right, #EED886, #D0A403);
-        }
-
-        .decaf_green_light_roast {
-            background-image: linear-gradient(to bottom right, #DCE9DD, #B0C6B2);
-        }
-
-        .decaf_orange_light_roast {
-            background-image: linear-gradient(to bottom right, #F2E5B4, #EED886);
-        }
-
-        .desert_horizon {
-            background-image: linear-gradient(to bottom, #127FCF, #52ACEE, #7EC7FD, #F7EFCA, #F6EDC2, #F5EBBA);
+            background-color: #C11B17;
+            color: #000000;
         }
 
 
+        body {
+            background-color: #2E1A47;
+            color: #F9DB24;
+        }
         table,
         th,
         td {
@@ -144,33 +138,30 @@ const DARK_FLAT_STYLING = `
         }
 
         .highlighted {
-            background-image: linear-gradient(to bottom right, yellow, gold);
+            background-color: #F9DB24;
+            color: #000000;
         }
 
         .outlined {
             display: inline-block;
             border-radius: 0.5em;
-            border: 0.05em solid black;
             padding: 0.2em 0.2em;
         }
 
         .object {
             border-radius: 1.5em;
-            border: 0.3em solid black;
             display: inline-block;
             padding: 0.4em 0.4em;
         }
 
         .incoming {
             border-radius: 3em 0.5em 0.5em 3em;
-            border: 0.3em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
 
         .outgoing {
             border-radius: 0.5em 3em 3em 0.5em;
-            border: 0.3em solid black;
             display: inline-block;
             padding: 1em 1em;
         }

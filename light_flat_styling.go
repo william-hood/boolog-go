@@ -22,7 +22,7 @@
 package boolog
 
 // TODO
-const LIGHT_FLAT_STYLING = `
+const THEME_LIGHT_FLAT = `
     <style>
         html {
             font-family: sans-serif

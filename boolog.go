@@ -185,11 +185,11 @@ func (this Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style st
 	return result, err
 }
 
-func NewBoolog(logTitle string, htmlOutputFileName string) Boolog {
-	return NewBoologDetailed(logTitle, htmlOutputFileName, nil, "", "")
+func NewBoolog(logTitle string, htmlOutputFileName string, theme string) Boolog {
+	return NewBoologDetailed(logTitle, htmlOutputFileName, nil, theme, "")
 }
 
-func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFunction HeaderFunction, htmlStyling string, textOutputFileName string) Boolog {
+func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFunction HeaderFunction, theme string, textOutputFileName string) Boolog {
 	result := new(Boolog)
 
 	if logTitle == "" {
@@ -221,12 +221,12 @@ func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFun
 		}
 		result.forHTML = hTML
 
-		if htmlStyling == "" {
-			htmlStyling = CLASSIC_STYLING
+		if theme == "" {
+			theme = THEME_CLASSIC
 		}
 
 		result.forHTML.WriteString(fmt.Sprintf("<html>\r\n<meta charset=\"UTF-8\">\r\n<head>\r\n<title>%s</title>\r\n", result.Title))
-		result.forHTML.WriteString(htmlStyling)
+		result.forHTML.WriteString(theme)
 		result.forHTML.WriteString("</head>\r\n<body>\r\n")
 
 		if htmlHeaderFunction == nil {

@@ -21,7 +21,7 @@
 
 package boolog
 
-const CLASSIC_STYLING = `
+const THEME_CLASSIC = `
     <style>
         html {
             font-family: sans-serif

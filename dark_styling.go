@@ -21,8 +21,7 @@
 
 package boolog
 
-// TODO
-const DARK_STYLING = `
+const THEME_DARK = `
     <style>
         html {
             font-family: sans-serif
@@ -46,70 +45,54 @@ const DARK_STYLING = `
             border-radius: 0.25em;
             border: 0.1em solid black;
             display: inline-block;
-            background-image: linear-gradient(to bottom right, white, WhiteSmoke);
+            background-image: linear-gradient(to bottom right, #3A3B3C, #34282C);
         }
 
         .failing_test_result {
-            background-image: linear-gradient(to bottom right, MistyRose, salmon);
+            background-image: linear-gradient(to bottom right, #800000, #2B1B17);
         }
 
         .inconclusive_test_result {
-            background-image: linear-gradient(to bottom right, LemonChiffon, Moccasin);
+            background-image: linear-gradient(to bottom right, #AF9B60, #493D26);
         }
 
         .passing_test_result {
-            background-image: linear-gradient(to bottom right, honeydew, palegreen);
+            background-image: linear-gradient(to bottom right, #4E9258, #228B22);
         }
 
         .implied_good {
-            background-image: linear-gradient(to bottom right, mintcream, honeydew);
+            background-image: linear-gradient(to bottom right, #228B22, #254117);
         }
 
         .implied_caution {
-            background-image: linear-gradient(to bottom right, LemonChiffon, oldlace);
+            background-image: linear-gradient(to bottom right, #AF9B60, #966F33);
         }
 
         .implied_bad {
-            background-image: linear-gradient(to bottom right, Seashell, LavenderBlush);
+            background-image: linear-gradient(to bottom right, #B21807, #660000);
         }
 
         .neutral {
-            background-image: linear-gradient(to bottom right, White, LightGrey);
+            background-image: linear-gradient(to bottom right, #4D4D4F, #040720);
         }
 
         .old_parchment {
-            background-image: radial-gradient(LightGoldenrodYellow, Cornsilk, Wheat);
+            background-image: radial-gradient(#E6BF83, #C8AD7F, #C19A6B);
         }
 
         .plate {
-            background-image: radial-gradient(GhostWhite, LightSteelBlue);
+            background-image: radial-gradient( #838996, #2B3856);
         }
 
         .exception {
-            background-image: linear-gradient(to bottom right, yellow, salmon);
-        }
-
-        .decaf_green {
-            background-image: linear-gradient(to bottom right, #B0C6B2, #83A787);
-        }
-
-        .decaf_orange {
-            background-image: linear-gradient(to bottom right, #EED886, #D0A403);
-        }
-
-        .decaf_green_light_roast {
-            background-image: linear-gradient(to bottom right, #DCE9DD, #B0C6B2);
-        }
-
-        .decaf_orange_light_roast {
-            background-image: linear-gradient(to bottom right, #F2E5B4, #EED886);
-        }
-
-        .desert_horizon {
-            background-image: linear-gradient(to bottom, #127FCF, #52ACEE, #7EC7FD, #F7EFCA, #F6EDC2, #F5EBBA);
+            background-image: linear-gradient(to bottom right, #E8A317, #660000);
         }
 
 
+        body {
+            background-color: #3A3B3C;
+            color: #ffffff;
+        }
         table,
         th,
         td {
@@ -144,7 +127,7 @@ const DARK_STYLING = `
         }
 
         .highlighted {
-            background-image: linear-gradient(to bottom right, yellow, gold);
+            background-image: linear-gradient(to bottom right, #E8A317, #CA762B);
         }
 
         .outlined {
