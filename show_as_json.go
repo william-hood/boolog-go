@@ -43,8 +43,6 @@ func (this Boolog) showAsJsonDetailed(target any, targetVariableName string, emo
 	targetType := reflect.TypeOf(target)
 	targetTypeName := targetType.String()
 
-	this.Debug(fmt.Sprintf("Target Type Name: %s", targetTypeName))
-
 	result := this.beginShow(timestamp, targetTypeName, targetVariableName, fmt.Sprintf("%s left_justified", style), 0)
 
 	if len(renderedTarget) > MAX_BODY_LENGTH_TO_DISPLAY {

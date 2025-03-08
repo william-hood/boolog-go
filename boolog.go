@@ -124,7 +124,11 @@ func (this Boolog) Conclude() string {
 	return this.Content.String()
 }
 
-func (this Boolog) Info(message string, emoji string) error {
+func (this Boolog) Info(message string) error {
+	return this.InfoDetailed(message, EMOJI_TEXT_BLANK_LINE)
+}
+
+func (this Boolog) InfoDetailed(message string, emoji string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(message, emoji, timestamp)
 	if htmlErr != nil {
@@ -181,11 +185,11 @@ func (this Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style st
 	return result, err
 }
 
-func NewBoologSimple(logTitle string, htmlOutputFileName string) Boolog {
-	return NewBoolog(logTitle, htmlOutputFileName, nil, "", "")
+func NewBoolog(logTitle string, htmlOutputFileName string) Boolog {
+	return NewBoologDetailed(logTitle, htmlOutputFileName, nil, "", "")
 }
 
-func NewBoolog(logTitle string, htmlOutputFileName string, htmlHeaderFunction HeaderFunction, htmlStyling string, textOutputFileName string) Boolog {
+func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFunction HeaderFunction, htmlStyling string, textOutputFileName string) Boolog {
 	result := new(Boolog)
 
 	if logTitle == "" {

@@ -73,11 +73,3 @@ func (this Boolog) beginShow(timestamp time.Time, typeName string, variableName 
 
 	return result
 }
-
-func (this Boolog) show(target any, targetVariableName string, recurselevel int) string {
-
-	// TODO: This must exhaust all more appropriate functions before defaulting just logging it.
-	// "Just logging it" will be more complicated than the Kotlin version, since not everything has .toString()
-
-	return "TODO"
-}
