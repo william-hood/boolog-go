@@ -49,21 +49,21 @@ func shouldRecurse(candidate any) bool {
 
 func (this Boolog) beginShow(timestamp time.Time, typeName string, variableName string, style string, recurseLevel int) *strings.Builder {
 	result := new(strings.Builder)
-	result.WriteString(fmt.Sprintf("\r\n<div class=\"object %s centered\">\r\n", style))
+	result.WriteString(fmt.Sprintf("\r\n<div class=\"object %s\">\r\n", style))
 
 	if recurseLevel > 0 {
 		identifier := uuid.NewString()
 		result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" class=\"gone\" type=\"checkbox\">\r\n", identifier, identifier))
 	}
-	result.WriteString(fmt.Sprintf("<h2>%s</h2>\r\n<small>", typeName))
+	result.WriteString(fmt.Sprintf("<center><h2>%s</h2>\r\n<small>", typeName))
 	if variableName != NAMELESS {
-		result.WriteString("\"")
+		result.WriteString("<b>\"")
 	}
 	result.WriteString(variableName)
 	if variableName != NAMELESS {
-		result.WriteString("\"")
+		result.WriteString("\"</b>")
 	}
-	result.WriteString("</small><br>\r\n")
+	result.WriteString("</small></center>\r\n")
 
 	if recurseLevel > 0 {
 		result.WriteString(fmt.Sprintf("<div class=\"%s\">\r\n", encapsulationTag()))
