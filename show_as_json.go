@@ -31,18 +31,21 @@ import (
 )
 
 func (this Boolog) ShowAsJson(target any, targetVariableName string) string {
+	return this.showAsJsonDetailed(target, targetVariableName, EMOJI_OBJECT, "plate")
+}
+
+func (this Boolog) showAsJsonDetailed(target any, targetVariableName string, emoji string, style string) string {
 	timestamp := time.Now()
 
 	jsonTarget, _ := json.MarshalIndent(target, "", "   ")
 	renderedTarget := TreatAsCode(string(jsonTarget))
 
-	//targetValue := reflect.ValueOf(&target).Elem()
 	targetType := reflect.TypeOf(target)
 	targetTypeName := targetType.String()
 
 	this.Debug(fmt.Sprintf("Target Type Name: %s", targetTypeName))
 
-	result := this.beginShow(timestamp, targetTypeName, targetVariableName, "plate left_justified", 0)
+	result := this.beginShow(timestamp, targetTypeName, targetVariableName, fmt.Sprintf("%s left_justified", style), 0)
 
 	if len(renderedTarget) > MAX_BODY_LENGTH_TO_DISPLAY {
 		identifier2 := uuid.NewString()
@@ -57,7 +60,7 @@ func (this Boolog) ShowAsJson(target any, targetVariableName string) string {
 
 	rendition := result.String()
 
-	this.writeToHTML(rendition, EMOJI_OBJECT, timestamp)
+	this.writeToHTML(rendition, emoji, timestamp)
 
 	return rendition
 }
