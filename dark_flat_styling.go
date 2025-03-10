@@ -45,22 +45,22 @@ const THEME_DARK_FLAT = `
             font-family: sans-serif;
             border-radius: 0.25em;
             display: inline-block;
-            background-image: linear-gradient(to bottom right, #3A3B3C, #34282C);
-            background-color: #3A3B3C;
+            background-color: #2E1A47;
+            color: #F3C331;
         }
 
         .failing_test_result {
-            background-color: #FF0000;
+            background-color: #970005;
             color: #000000;
         }
 
         .inconclusive_test_result {
-            background-color: #FFDB58;
+            background-color: #8A7839;
             color: #000000;
         }
 
         .passing_test_result {
-            background-color: #32CD32;
+            background-color: #007122;
             color: #000000;
         }
 
@@ -70,7 +70,7 @@ const THEME_DARK_FLAT = `
         }
 
         .implied_caution {
-            background-color: #FFFACD;
+            background-color: #EDE7C1;
             color: #000000;
         }
 
@@ -80,17 +80,17 @@ const THEME_DARK_FLAT = `
         }
 
         .neutral {
-            background-color: #728FCE;
+            background-color: #893AA0;
             color: #000000;
         }
 
         .old_parchment {
-            background-color: #FFFFC2;
+            background-color: #8E844C;
             color: #000000;
         }
 
         .plate {
-            background-color: #5E7D7E;
+            background-color: #909DFD;
             color: #000000;
         }
 
@@ -101,8 +101,8 @@ const THEME_DARK_FLAT = `
 
 
         body {
-            background-color: #2E1A47;
-            color: #F9DB24;
+            background-color: #0D0000;
+            color: #F3C331;
         }
         table,
         th,
@@ -130,7 +130,7 @@ const THEME_DARK_FLAT = `
         hr {
             border: none;
             height: 0.3em;
-            background-color: black;
+            background-color: #F3C331;
         }
         
         .centered {
@@ -138,7 +138,7 @@ const THEME_DARK_FLAT = `
         }
 
         .highlighted {
-            background-color: #F9DB24;
+            background-color: #F3C331;
             color: #000000;
         }
 
@@ -176,6 +176,7 @@ const THEME_DARK_FLAT = `
             padding: 0.4em 0.4em;
             border-collapse: collapse;
             border: 0.02em solid black;
+            color: #000000;
         }
         
         label {

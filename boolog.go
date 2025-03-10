@@ -169,7 +169,7 @@ func (this Boolog) SkipLine() error {
 }
 
 func (this Boolog) ShowBoolog(subordinate Boolog) (string, error) {
-	return this.ShowBoologDetailed(subordinate, EMOJI_BOOLOG, "neutral", 0)
+	return this.ShowBoologDetailed(subordinate, EMOJI_BOOLOG, "boolog", 0)
 }
 
 func (this Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style string, recurseLevel int) (string, error) {

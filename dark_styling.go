@@ -119,7 +119,7 @@ const THEME_DARK = `
         hr {
             border: none;
             height: 0.3em;
-            background-color: black;
+            background-color: #ffffff;
         }
         
         .centered {
