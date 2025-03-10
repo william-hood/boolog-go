@@ -44,72 +44,55 @@ const THEME_LIGHT_FLAT = `
         .boolog {
             font-family: sans-serif;
             border-radius: 0.25em;
-            border: 0.1em solid black;
             display: inline-block;
-            background-image: linear-gradient(to bottom right, white, WhiteSmoke);
+            background-color: #DFDFDF;
         }
 
         .failing_test_result {
-            background-image: linear-gradient(to bottom right, MistyRose, salmon);
+            background-color: #E55451;
         }
 
         .inconclusive_test_result {
-            background-image: linear-gradient(to bottom right, LemonChiffon, Moccasin);
+            background-color: #FFFFC2;
         }
 
         .passing_test_result {
-            background-image: linear-gradient(to bottom right, honeydew, palegreen);
+            background-color: #C3FDB8;
         }
 
         .implied_good {
-            background-image: linear-gradient(to bottom right, mintcream, honeydew);
+            background-color: #A0D6B4;
         }
 
         .implied_caution {
-            background-image: linear-gradient(to bottom right, LemonChiffon, oldlace);
+            background-color: #FFFFC2;
         }
 
         .implied_bad {
-            background-image: linear-gradient(to bottom right, Seashell, LavenderBlush);
+            background-color: #FA8072;
         }
 
         .neutral {
-            background-image: linear-gradient(to bottom right, White, LightGrey);
+            background-color: #DBE9FA;
         }
 
         .old_parchment {
-            background-image: radial-gradient(LightGoldenrodYellow, Cornsilk, Wheat);
+            background-color: #FFE5B4;
         }
 
         .plate {
-            background-image: radial-gradient(GhostWhite, LightSteelBlue);
+            background-color: #B0CFDE;
         }
 
         .exception {
-            background-image: linear-gradient(to bottom right, yellow, salmon);
-        }
-
-        .decaf_green {
-            background-image: linear-gradient(to bottom right, #B0C6B2, #83A787);
-        }
-
-        .decaf_orange {
-            background-image: linear-gradient(to bottom right, #EED886, #D0A403);
-        }
-
-        .decaf_green_light_roast {
-            background-image: linear-gradient(to bottom right, #DCE9DD, #B0C6B2);
-        }
-
-        .decaf_orange_light_roast {
-            background-image: linear-gradient(to bottom right, #F2E5B4, #EED886);
-        }
-
-        .desert_horizon {
-            background-image: linear-gradient(to bottom, #127FCF, #52ACEE, #7EC7FD, #F7EFCA, #F6EDC2, #F5EBBA);
+            background-color: #FF4500;
         }
 
 
+        body {
+            background-color: #FFFFFF;
+            color: #000000;
+        }
         table,
         th,
         td {
@@ -136,7 +119,7 @@ const THEME_LIGHT_FLAT = `
         hr {
             border: none;
             height: 0.3em;
-            background-color: black;
+            background-color: #000000;
         }
         
         .centered {
@@ -144,33 +127,30 @@ const THEME_LIGHT_FLAT = `
         }
 
         .highlighted {
-            background-image: linear-gradient(to bottom right, yellow, gold);
+            background-color: #FFC600;
+            color: #000000;
         }
 
         .outlined {
             display: inline-block;
             border-radius: 0.5em;
-            border: 0.05em solid black;
             padding: 0.2em 0.2em;
         }
 
         .object {
             border-radius: 1.5em;
-            border: 0.3em solid black;
             display: inline-block;
             padding: 0.4em 0.4em;
         }
 
         .incoming {
             border-radius: 3em 0.5em 0.5em 3em;
-            border: 0.3em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
 
         .outgoing {
             border-radius: 0.5em 3em 3em 0.5em;
-            border: 0.3em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
@@ -185,6 +165,7 @@ const THEME_LIGHT_FLAT = `
             padding: 0.4em 0.4em;
             border-collapse: collapse;
             border: 0.02em solid black;
+            color: #000000;
         }
         
         label {
