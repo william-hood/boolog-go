@@ -264,7 +264,6 @@ func defaultHeader(title string) string {
 	return builder.String()
 }
 
-// In Kotlin there's an optional style variable that defaults to "highlighted". For this I just hardcoded it.
 func highlight(message string) string {
 	var builder strings.Builder
 
