@@ -21,7 +21,7 @@
 
 package boolog
 
-const THEME_DARK = `
+const THEME_DARK_GRADIENT = `
     <style>
         html {
             font-family: sans-serif
@@ -43,71 +43,55 @@ const THEME_DARK = `
         .boolog {
             font-family: sans-serif;
             border-radius: 0.25em;
-            border: 0.5em solid GhostWhite;
+            border: 0.1em solid black;
             display: inline-block;
+            background-image: linear-gradient(to bottom right, #3A3B3C, #34282C);
         }
 
         .failing_test_result {
-            border: 0.5em solid #F62817;
-            color: #F62817;
-            background-color: #210002;
+            background-image: linear-gradient(to bottom right, #800000, #2B1B17);
         }
 
         .inconclusive_test_result {
-            border: 0.5em solid #FFEF00;
-            color: #FFEF00;
-            background-color: #212000;
+            background-image: linear-gradient(to bottom right, #AF9B60, #493D26);
         }
 
         .passing_test_result {
-            border: 0.5em solid #59E817;
-            color: #59E817;
-            background-color: #012100;
+            background-image: linear-gradient(to bottom right, #4E9258, #228B22);
         }
 
         .implied_good {
-            border: 0.5em solid #00FA9A;
-            color: #00FA9A;
-            background-color: #012100;
+            background-image: linear-gradient(to bottom right, #228B22, #254117);
         }
 
         .implied_caution {
-            border: 0.5em solid #FFFFC2;
-            color: #FFFFC2;
-            background-color: #212000;
+            background-image: linear-gradient(to bottom right, #AF9B60, #966F33);
         }
 
         .implied_bad {
-            border: 0.5em solid #FA8072;
-            color: #FA8072;
-            background-color: #210002;
+            background-image: linear-gradient(to bottom right, #B21807, #660000);
         }
 
         .neutral {
-            border: 0.5em solid #E0FFFF;
-            color: #E0FFFF;
+            background-image: linear-gradient(to bottom right, #4D4D4F, #040720);
         }
 
         .old_parchment {
-            border: 0.5em solid #8A9A5B;
-            color: #8A9A5B;
+            background-image: radial-gradient(#E6BF83, #C8AD7F, #C19A6B);
         }
 
         .plate {
-            border: 0.5em solid #838996;
-            background-color: #2B3856;
+            background-image: radial-gradient( #838996, #2B3856);
         }
 
         .exception {
-            border: 0.5em solid #E8A317;
-            color: #FFFF33;
-            background-color: #660000;
+            background-image: linear-gradient(to bottom right, #E8A317, #660000);
         }
 
 
         body {
-            background-color: #000000;
-            color: GhostWhite;
+            background-color: #3A3B3C;
+            color: #FFFFFF;
         }
         table,
         th,
@@ -135,7 +119,7 @@ const THEME_DARK = `
         hr {
             border: none;
             height: 0.3em;
-            background-color: GhostWhite;
+            background-color: #FFFFFF;
         }
         
         .centered {
@@ -143,32 +127,33 @@ const THEME_DARK = `
         }
 
         .highlighted {
-            background-color: #FFFF33;
-            color: #FF4500;
-            font-weight: bold
+            background-image: linear-gradient(to bottom right, #E8A317, #CA762B);
         }
 
         .outlined {
             display: inline-block;
             border-radius: 0.5em;
-            border: 0.05em solid Orange;
+            border: 0.05em solid black;
             padding: 0.2em 0.2em;
         }
 
         .object {
             border-radius: 1.5em;
+            border: 0.3em solid black;
             display: inline-block;
             padding: 0.4em 0.4em;
         }
 
         .incoming {
             border-radius: 3em 0.5em 0.5em 3em;
+            border: 0.3em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
 
         .outgoing {
             border-radius: 0.5em 3em 3em 0.5em;
+            border: 0.3em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
@@ -182,7 +167,7 @@ const THEME_DARK = `
         table.gridlines td {
             padding: 0.4em 0.4em;
             border-collapse: collapse;
-            border: 0.1em solid #6698FF;
+            border: 0.02em solid black;
         }
         
         label {

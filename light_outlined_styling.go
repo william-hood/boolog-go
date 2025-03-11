@@ -21,7 +21,7 @@
 
 package boolog
 
-const THEME_DARK = `
+const THEME_LIGHT_OUTLINED = `
     <style>
         html {
             font-family: sans-serif
@@ -43,72 +43,68 @@ const THEME_DARK = `
         .boolog {
             font-family: sans-serif;
             border-radius: 0.25em;
-            border: 0.5em solid GhostWhite;
+            border: 0.1em solid black;
             display: inline-block;
+            background-color: #f1faff;
         }
 
         .failing_test_result {
-            border: 0.5em solid #F62817;
-            color: #F62817;
-            background-color: #210002;
+            background-color: #ffb1a6;
         }
 
         .inconclusive_test_result {
-            border: 0.5em solid #FFEF00;
-            color: #FFEF00;
-            background-color: #212000;
+            background-color: #fffbb9;
         }
 
         .passing_test_result {
-            border: 0.5em solid #59E817;
-            color: #59E817;
-            background-color: #012100;
+            background-color: #c6ffad;
         }
 
         .implied_good {
-            border: 0.5em solid #00FA9A;
-            color: #00FA9A;
-            background-color: #012100;
+            background-color: #e4ffd8;
         }
 
         .implied_caution {
-            border: 0.5em solid #FFFFC2;
-            color: #FFFFC2;
-            background-color: #212000;
+            background-color: #fffdd8;
         }
 
         .implied_bad {
-            border: 0.5em solid #FA8072;
-            color: #FA8072;
-            background-color: #210002;
+            background-color: #F6C6BD;
         }
 
         .neutral {
-            border: 0.5em solid #E0FFFF;
-            color: #E0FFFF;
+            background-color: #EBF4FA;
         }
 
         .old_parchment {
-            border: 0.5em solid #8A9A5B;
-            color: #8A9A5B;
+            background-color: #FFFFC2;
         }
 
         .plate {
-            border: 0.5em solid #838996;
-            background-color: #2B3856;
+            background-color: WhiteBlue;
         }
 
         .exception {
-            border: 0.5em solid #E8A317;
-            color: #FFFF33;
-            background-color: #660000;
+            background-image: linear-gradient(to bottom right, #fff2a6, #ffb0a6);
+        }
+
+        .decaf_green {
+            background-color: #B0C6B2;
+        }
+
+        .decaf_orange {
+            background-color: #EED886;
+        }
+
+        .decaf_green_light_roast {
+            background-color: #DCE9DD;
+        }
+
+        .decaf_orange_light_roast {
+            background-color: #F2E5B4;
         }
 
 
-        body {
-            background-color: #000000;
-            color: GhostWhite;
-        }
         table,
         th,
         td {
@@ -134,8 +130,8 @@ const THEME_DARK = `
 
         hr {
             border: none;
-            height: 0.3em;
-            background-color: GhostWhite;
+            height: 0.2em;
+            background-color: black;
         }
         
         .centered {
@@ -143,32 +139,33 @@ const THEME_DARK = `
         }
 
         .highlighted {
-            background-color: #FFFF33;
-            color: #FF4500;
-            font-weight: bold
+            background-color: yellow;
         }
 
         .outlined {
             display: inline-block;
             border-radius: 0.5em;
-            border: 0.05em solid Orange;
+            border: 0.05em solid black;
             padding: 0.2em 0.2em;
         }
 
         .object {
             border-radius: 1.5em;
+            border: 0.1em solid black;
             display: inline-block;
             padding: 0.4em 0.4em;
         }
 
         .incoming {
             border-radius: 3em 0.5em 0.5em 3em;
+            border: 0.1em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
 
         .outgoing {
             border-radius: 0.5em 3em 3em 0.5em;
+            border: 0.1em solid black;
             display: inline-block;
             padding: 1em 1em;
         }
@@ -182,7 +179,7 @@ const THEME_DARK = `
         table.gridlines td {
             padding: 0.4em 0.4em;
             border-collapse: collapse;
-            border: 0.1em solid #6698FF;
+            border: 0.02em solid black;
         }
         
         label {
