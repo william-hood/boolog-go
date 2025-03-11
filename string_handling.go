@@ -26,6 +26,7 @@ import (
 	"strings"
 )
 
+// Type CallbackFunction can be used to allow additional processing for strings passed through Boolog. Example uses would be JSON Pretty-Printing or Base64 decoding.
 type CallbackFunction func(string, string) string
 
 func TreatAsCode(value string) string {

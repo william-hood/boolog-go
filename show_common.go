@@ -56,11 +56,11 @@ func (this *Boolog) beginShow(timestamp time.Time, typeName string, variableName
 		result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" class=\"gone\" type=\"checkbox\">\r\n", identifier, identifier))
 	}
 	result.WriteString(fmt.Sprintf("<center><h2>%s</h2>\r\n<small>", typeName))
-	if variableName != NAMELESS {
+	if variableName != nAMELESS {
 		result.WriteString("<b>\"")
 	}
 	result.WriteString(variableName)
-	if variableName != NAMELESS {
+	if variableName != nAMELESS {
 		result.WriteString("\"</b>")
 	}
 	result.WriteString("</small></center>\r\n")

@@ -19,6 +19,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 
+// Package boolog implements a rich logging system that outputs directly to HTML, with counterpart output to the console or a text file.
 package boolog
 
 import (
@@ -31,8 +32,10 @@ import (
 	"github.com/google/uuid"
 )
 
+// Type HeaderFunction can be used to generate a custom header for a Boolog's HTML output. The default header is used if you don't make your own.
 type HeaderFunction func(string) string
 
+// Type boolog implements a rich logging system that outputs directly to HTML, with counterpart output to the console or a text file.
 type Boolog struct {
 	Title          string
 	forPlainText   *os.File
@@ -44,8 +47,9 @@ type Boolog struct {
 	FirstEcho      bool
 }
 
+// Returns true if this Boolog has been used.
 func (this *Boolog) WasUsed() bool {
-	return (this.Content.Len() - len(STARTING_CONTENT)) > 0
+	return (this.Content.Len() - len(sTARTING_CONTENT)) > 0
 }
 
 func (this *Boolog) echoPlainText(message string, emoji string, timestamp time.Time) error {
@@ -55,7 +59,7 @@ func (this *Boolog) echoPlainText(message string, emoji string, timestamp time.T
 	}
 
 	if this.isConcluded {
-		return errors.New(BOOLOG_CONCLUDED)
+		return errors.New(bOOLOG_CONCLUDED)
 	}
 
 	if this.FirstEcho {
@@ -80,7 +84,7 @@ func (this *Boolog) echoPlainText(message string, emoji string, timestamp time.T
 
 func (this *Boolog) writeToHTML(message string, emoji string, timestamp time.Time) error {
 	if this.isConcluded {
-		return errors.New(BOOLOG_CONCLUDED)
+		return errors.New(bOOLOG_CONCLUDED)
 	}
 
 	this.Content.WriteString("<tr>")
@@ -98,6 +102,7 @@ func (this *Boolog) writeToHTML(message string, emoji string, timestamp time.Tim
 	return nil
 }
 
+// Concludes this Boolog. All buffered HTML is written to the file if one is associated with it. Once concluded, this Boolog becomes read only.
 func (this *Boolog) Conclude() string {
 	if !this.isConcluded {
 		timestamp := time.Now()
@@ -124,10 +129,12 @@ func (this *Boolog) Conclude() string {
 	return this.Content.String()
 }
 
+// This is the standard way to output text through a Boolog. No emoji will be added to the output line.
 func (this *Boolog) Info(message string) error {
 	return this.InfoDetailed(message, EMOJI_TEXT_BLANK_LINE)
 }
 
+// This outputs text to this Boolog, but allows you to specify an emoji to appear next to the line.
 func (this *Boolog) InfoDetailed(message string, emoji string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(message, emoji, timestamp)
@@ -138,6 +145,7 @@ func (this *Boolog) InfoDetailed(message string, emoji string) error {
 	return textErr
 }
 
+// Use this to output a highlighted debugging message. The HTML output will highlight the text in yellow (or orange, depending on the theme used). Both HTML and Plaintext will output the line with a debugging emoji icon.
 func (this *Boolog) Debug(message string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(highlight(message), EMOJI_DEBUG, timestamp)
@@ -148,6 +156,7 @@ func (this *Boolog) Debug(message string) error {
 	return textErr
 }
 
+// Use this to output a highlighted error message. The HTML output will highlight the text in yellow (or orange, depending on the theme used). Both HTML and Plaintext will output the line with an error emoji icon.
 func (this *Boolog) Error(message string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(highlight(message), EMOJI_ERROR, timestamp)
@@ -158,6 +167,7 @@ func (this *Boolog) Error(message string) error {
 	return textErr
 }
 
+// Skips a line in the Boolog output. The skipped line will still include a timestamp.
 func (this *Boolog) SkipLine() error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML("", EMOJI_TEXT_BLANK_LINE, timestamp)
@@ -168,10 +178,12 @@ func (this *Boolog) SkipLine() error {
 	return textErr
 }
 
+// Embeds another Boolog into this one as a subordinate. (The subordinate Boolog will be concluded and become read-only.) The HTML output will show the subordinate as a click-to-expand section.
 func (this *Boolog) ShowBoolog(subordinate Boolog) (string, error) {
 	return this.ShowBoologDetailed(subordinate, EMOJI_BOOLOG, "boolog", 0)
 }
 
+// Embeds another Boolog into this one as a subordinate. (The subordinate Boolog will be concluded and become read-only.) This verion of the function allows you to specify an emoji icon and a theme. Use 0 for the recurseLevel. The HTML output will show the subordinate as a click-to-expand section.
 func (this *Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style string, recurseLevel int) (string, error) {
 	var err error = nil
 	timestamp := time.Now()
@@ -185,15 +197,17 @@ func (this *Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style s
 	return result, err
 }
 
+// This is the standard function to create a new Boolog. Specify "" for htmlOutputFileName if you intend this to be embedded in another Boolog. Use "" for the theme is you do not wish to explictly specify one.
 func NewBoolog(logTitle string, htmlOutputFileName string, theme string) Boolog {
 	return NewBoologDetailed(logTitle, htmlOutputFileName, nil, theme, "")
 }
 
+// Creates a new Boolog. This more detailed version allows you to specify your own HeaderFunction. For textOutputFileName, use "" if you wish to just echo to console.
 func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFunction HeaderFunction, theme string, textOutputFileName string) Boolog {
 	result := new(Boolog)
 
 	if logTitle == "" {
-		logTitle = UNKNOWN
+		logTitle = uNKNOWN
 	}
 
 	result.Title = logTitle
@@ -202,7 +216,7 @@ func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFun
 	result.isConcluded = false
 	result.FirstEcho = true
 	result.Content = &strings.Builder{}
-	result.Content.WriteString(STARTING_CONTENT)
+	result.Content.WriteString(sTARTING_CONTENT)
 
 	if textOutputFileName == "" {
 		result.forPlainText = os.Stdout
@@ -222,7 +236,7 @@ func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFun
 		result.forHTML = hTML
 
 		if theme == "" {
-			theme = THEME_CLASSIC
+			theme = THEME_LIGHT_OUTLINED
 		}
 
 		result.forHTML.WriteString(fmt.Sprintf("<html>\r\n<meta charset=\"UTF-8\">\r\n<head>\r\n<title>%s</title>\r\n", result.Title))

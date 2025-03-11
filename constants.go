@@ -36,16 +36,16 @@ const EMOJI_OBJECT = "🔲"
 const EMOJI_CAUSED_BY = "→"
 const EMOJI_OUTGOING = "↗️"
 const EMOJI_INCOMING = "↩️"
-const UNKNOWN = "(unknown)"
 
-const NAMELESS = "(name not given)"
-const ALREADY_CONCLUDED_MESSAGE = "An attempt was made to write to a Boolog that was already concluded.\r\n<li>Once a Boolog has been concluded it can no longer be written to.\r\n<li>Passing a Boolog to the ShowBoolog() method will automatically conclude it."
-const MAX_OBJECT_FIELDS_TO_DISPLAY = 10
-const MAX_SHOW_OBJECT_RECURSION = 10
-const MAX_HEADERS_TO_DISPLAY = 10
-const MAX_BODY_LENGTH_TO_DISPLAY = 500
-const STARTING_CONTENT = "<table class=\"left_justified\">\r\n"
-const BOOLOG_CONCLUDED = "Boolog Concluded"
+const uNKNOWN = "(unknown)"
+const nAMELESS = "(name not given)"
+const aLREADY_CONCLUDED_MESSAGE = "An attempt was made to write to a Boolog that was already concluded.\r\n<li>Once a Boolog has been concluded it can no longer be written to.\r\n<li>Passing a Boolog to the ShowBoolog() method will automatically conclude it."
+const mAX_OBJECT_FIELDS_TO_DISPLAY = 10
+const mAX_SHOW_OBJECT_RECURSION = 10
+const mAX_HEADERS_TO_DISPLAY = 10
+const mAX_BODY_LENGTH_TO_DISPLAY = 500
+const sTARTING_CONTENT = "<table class=\"left_justified\">\r\n"
+const bOOLOG_CONCLUDED = "Boolog Concluded"
 const TIME_FMT_DATE = "2006-01-02"
 const TIME_FMT_TIME = "15:04:05.0000"
 const TIME_FMT_TEXT = TIME_FMT_DATE + " " + TIME_FMT_TIME

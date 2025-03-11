@@ -30,6 +30,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// This will render any complex type, such as a struct, map, or slice, as an object in the HTML output. It will be outlined showing the type and variable name, with a JSON rendition of the contents. If the contents are lengthy, it will automatically be made click-to-expand.
 func (this *Boolog) ShowAsJson(target any, targetVariableName string) string {
 	return this.showAsJsonDetailed(target, targetVariableName, EMOJI_OBJECT, "plate")
 }
@@ -45,7 +46,7 @@ func (this *Boolog) showAsJsonDetailed(target any, targetVariableName string, em
 
 	result := this.beginShow(timestamp, targetTypeName, targetVariableName, fmt.Sprintf("%s left_justified", style), 0)
 
-	if len(renderedTarget) > MAX_BODY_LENGTH_TO_DISPLAY {
+	if len(renderedTarget) > mAX_BODY_LENGTH_TO_DISPLAY {
 		identifier2 := uuid.NewString()
 		result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\">\r\n(show large object)\r\n<div class=\"%s\">\r\n", identifier2, identifier2, encapsulationTag()))
 		result.WriteString(renderedTarget)

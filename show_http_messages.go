@@ -33,8 +33,9 @@ import (
 	"github.com/google/uuid"
 )
 
-const HTTP_MESSAGE_BODY = "HTTP Req/Resp Body/Payload"
+const hTTP_MESSAGE_BODY = "HTTP Req/Resp Body/Payload"
 
+// Use this to render a standard Golang HTTP Request (Package "net/http", type Request). The CallbackFunction can be used to allow additional processing for strings passed through Boolog. Example uses would be JSON Pretty-Printing or Base64 decoding.
 func (this *Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) {
 	timestamp := time.Now()
 	reqUrl := req.URL
@@ -90,6 +91,7 @@ func (this *Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction)
 	this.echoPlainText(textRendition, EMOJI_OUTGOING, timestamp)
 }
 
+// Use this to render a standard Golang HTTP Response (Package "net/http", type Response). The CallbackFunction can be used to allow additional processing for strings passed through Boolog. Example uses would be JSON Pretty-Printing or Base64 decoding.
 func (this *Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunction) {
 	var result strings.Builder
 
@@ -152,7 +154,7 @@ func (this *Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte
 		}
 		renderedHeaders.WriteString("\r\n</table><br>")
 
-		if len(headerMap) > MAX_HEADERS_TO_DISPLAY {
+		if len(headerMap) > mAX_HEADERS_TO_DISPLAY {
 			identifier1 := uuid.NewString()
 			result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\">\r\n(show %d headers)\r\n<div class=\"%s\">\r\n", identifier1, identifier1, len(headerMap), encapsulationTag()))
 			result.WriteString(renderedHeaders.String())
@@ -172,9 +174,9 @@ func (this *Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte
 		stringPayload := string(bodyBytes)
 		payloadSize := len(stringPayload)
 		result.WriteString("<br><b>Payload</b><br></center>\r\n")
-		renderedBody := TreatAsCode(processString(HTTP_MESSAGE_BODY, stringPayload, callback))
+		renderedBody := TreatAsCode(processString(hTTP_MESSAGE_BODY, stringPayload, callback))
 
-		if payloadSize > MAX_BODY_LENGTH_TO_DISPLAY {
+		if payloadSize > mAX_BODY_LENGTH_TO_DISPLAY {
 			identifier2 := uuid.NewString()
 			result.WriteString(fmt.Sprintf("<label for=\"%s\">\r\n<input id=\"%s\" type=\"checkbox\">\r\n(show large payload)\r\n<div class=\"%s\">\r\n", identifier2, identifier2, encapsulationTag()))
 			result.WriteString(renderedBody)
@@ -187,6 +189,7 @@ func (this *Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte
 	return result.String()
 }
 
+// Given a standard Golang HTTP Request (Package "net/http", type Request), this will render the request, send it, receive the response and render the response. The CallbackFunction can be used to allow additional processing for strings passed through Boolog. Example uses would be JSON Pretty-Printing or Base64 decoding. The response is returned.
 func (this *Boolog) ShowHttpTransaction(req http.Request, callback CallbackFunction) *http.Response {
 	this.ShowHttpRequest(req, callback)
 	resp, _ := http.DefaultClient.Do(&req)

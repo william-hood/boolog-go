@@ -21,6 +21,7 @@
 
 package boolog
 
+// This reders an Object as func ShowAsJson() does, but with the assumption it is being passed some form of Error type. If you search the internet, you may be able to find implementations of errors with attached stack traces.
 func (this *Boolog) ShowError(targetError any, targetVariableName string) string {
 	return this.showAsJsonDetailed(targetError, targetVariableName, EMOJI_ERROR, "exception")
 }
