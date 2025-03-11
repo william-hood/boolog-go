@@ -41,14 +41,14 @@ type Boolog struct {
 	ShowEmojis     bool
 	Content        *strings.Builder
 	isConcluded    bool
-	firstEcho      bool
+	FirstEcho      bool
 }
 
-func (this Boolog) WasUsed() bool {
+func (this *Boolog) WasUsed() bool {
 	return (this.Content.Len() - len(STARTING_CONTENT)) > 0
 }
 
-func (this Boolog) echoPlainText(message string, emoji string, timestamp time.Time) error {
+func (this *Boolog) echoPlainText(message string, emoji string, timestamp time.Time) error {
 	if this.forPlainText == nil {
 		// Silently decline
 		return nil
@@ -58,8 +58,8 @@ func (this Boolog) echoPlainText(message string, emoji string, timestamp time.Ti
 		return errors.New(BOOLOG_CONCLUDED)
 	}
 
-	if this.firstEcho {
-		this.firstEcho = false
+	if this.FirstEcho {
+		this.FirstEcho = false
 		this.echoPlainText("", EMOJI_TEXT_BLANK_LINE, timestamp)
 		this.echoPlainText(this.Title, EMOJI_BOOLOG, timestamp)
 	}
@@ -78,7 +78,7 @@ func (this Boolog) echoPlainText(message string, emoji string, timestamp time.Ti
 	return nil
 }
 
-func (this Boolog) writeToHTML(message string, emoji string, timestamp time.Time) error {
+func (this *Boolog) writeToHTML(message string, emoji string, timestamp time.Time) error {
 	if this.isConcluded {
 		return errors.New(BOOLOG_CONCLUDED)
 	}
@@ -98,7 +98,7 @@ func (this Boolog) writeToHTML(message string, emoji string, timestamp time.Time
 	return nil
 }
 
-func (this Boolog) Conclude() string {
+func (this *Boolog) Conclude() string {
 	if !this.isConcluded {
 		timestamp := time.Now()
 		this.echoPlainText("", EMOJI_TEXT_BOOLOG_CONCLUDE, timestamp)
@@ -124,11 +124,11 @@ func (this Boolog) Conclude() string {
 	return this.Content.String()
 }
 
-func (this Boolog) Info(message string) error {
+func (this *Boolog) Info(message string) error {
 	return this.InfoDetailed(message, EMOJI_TEXT_BLANK_LINE)
 }
 
-func (this Boolog) InfoDetailed(message string, emoji string) error {
+func (this *Boolog) InfoDetailed(message string, emoji string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(message, emoji, timestamp)
 	if htmlErr != nil {
@@ -138,7 +138,7 @@ func (this Boolog) InfoDetailed(message string, emoji string) error {
 	return textErr
 }
 
-func (this Boolog) Debug(message string) error {
+func (this *Boolog) Debug(message string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(highlight(message), EMOJI_DEBUG, timestamp)
 	if htmlErr != nil {
@@ -148,7 +148,7 @@ func (this Boolog) Debug(message string) error {
 	return textErr
 }
 
-func (this Boolog) Error(message string) error {
+func (this *Boolog) Error(message string) error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML(highlight(message), EMOJI_ERROR, timestamp)
 	if htmlErr != nil {
@@ -158,7 +158,7 @@ func (this Boolog) Error(message string) error {
 	return textErr
 }
 
-func (this Boolog) SkipLine() error {
+func (this *Boolog) SkipLine() error {
 	timestamp := time.Now()
 	htmlErr := this.writeToHTML("", EMOJI_TEXT_BLANK_LINE, timestamp)
 	if htmlErr != nil {
@@ -168,11 +168,11 @@ func (this Boolog) SkipLine() error {
 	return textErr
 }
 
-func (this Boolog) ShowBoolog(subordinate Boolog) (string, error) {
+func (this *Boolog) ShowBoolog(subordinate Boolog) (string, error) {
 	return this.ShowBoologDetailed(subordinate, EMOJI_BOOLOG, "boolog", 0)
 }
 
-func (this Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style string, recurseLevel int) (string, error) {
+func (this *Boolog) ShowBoologDetailed(subordinate Boolog, emoji string, style string, recurseLevel int) (string, error) {
 	var err error = nil
 	timestamp := time.Now()
 	subordinateContent := subordinate.Conclude()
@@ -200,7 +200,7 @@ func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFun
 	result.ShowTimeStamps = true
 	result.ShowEmojis = true
 	result.isConcluded = false
-	result.firstEcho = true
+	result.FirstEcho = true
 	result.Content = &strings.Builder{}
 	result.Content.WriteString(STARTING_CONTENT)
 

@@ -30,11 +30,11 @@ import (
 	"github.com/google/uuid"
 )
 
-func (this Boolog) ShowAsJson(target any, targetVariableName string) string {
+func (this *Boolog) ShowAsJson(target any, targetVariableName string) string {
 	return this.showAsJsonDetailed(target, targetVariableName, EMOJI_OBJECT, "plate")
 }
 
-func (this Boolog) showAsJsonDetailed(target any, targetVariableName string, emoji string, style string) string {
+func (this *Boolog) showAsJsonDetailed(target any, targetVariableName string, emoji string, style string) string {
 	timestamp := time.Now()
 
 	jsonTarget, _ := json.MarshalIndent(target, "", "   ")

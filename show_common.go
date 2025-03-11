@@ -47,7 +47,7 @@ func shouldRecurse(candidate any) bool {
 
 // shouldRender() from the Kotlin version probably doesn't apply here as unexported fields are not visible to reflection in Go.
 
-func (this Boolog) beginShow(timestamp time.Time, typeName string, variableName string, style string, recurseLevel int) *strings.Builder {
+func (this *Boolog) beginShow(timestamp time.Time, typeName string, variableName string, style string, recurseLevel int) *strings.Builder {
 	result := new(strings.Builder)
 	result.WriteString(fmt.Sprintf("\r\n<div class=\"object %s\">\r\n", style))
 

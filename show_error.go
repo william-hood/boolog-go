@@ -21,6 +21,6 @@
 
 package boolog
 
-func (this Boolog) ShowError(targetError any, targetVariableName string) string {
+func (this *Boolog) ShowError(targetError any, targetVariableName string) string {
 	return this.showAsJsonDetailed(targetError, targetVariableName, EMOJI_ERROR, "exception")
 }

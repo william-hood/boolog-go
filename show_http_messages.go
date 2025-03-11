@@ -35,7 +35,7 @@ import (
 
 const HTTP_MESSAGE_BODY = "HTTP Req/Resp Body/Payload"
 
-func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) {
+func (this *Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) {
 	timestamp := time.Now()
 	reqUrl := req.URL
 	var result strings.Builder
@@ -90,7 +90,7 @@ func (this Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction) 
 	this.echoPlainText(textRendition, EMOJI_OUTGOING, timestamp)
 }
 
-func (this Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunction) {
+func (this *Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunction) {
 	var result strings.Builder
 
 	timestamp := time.Now()
@@ -118,7 +118,7 @@ func (this Boolog) ShowHttpResponse(resp http.Response, callback CallbackFunctio
 	this.echoPlainText(textRendition, EMOJI_INCOMING, timestamp)
 }
 
-func (this Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte, callback CallbackFunction) string {
+func (this *Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte, callback CallbackFunction) string {
 	var result strings.Builder
 
 	// Headers
@@ -187,7 +187,7 @@ func (this Boolog) renderHeadersAndBody(headerMap http.Header, bodyBytes []byte,
 	return result.String()
 }
 
-func (this Boolog) ShowHttpTransaction(req http.Request, callback CallbackFunction) *http.Response {
+func (this *Boolog) ShowHttpTransaction(req http.Request, callback CallbackFunction) *http.Response {
 	this.ShowHttpRequest(req, callback)
 	resp, _ := http.DefaultClient.Do(&req)
 	this.ShowHttpResponse(*resp, callback)
