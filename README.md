@@ -22,7 +22,11 @@ For usage, refer to this example program and Go Doc comments.
 GitHub won't let me directly link to the HTML examples showing each theme (it forces it to resolve as HTML source code).
 Instead, I've bundled the examples into a ZIP archive that you can preview on your computer.
 
-[Download a ZIP with HTML Examples of all themes](examples/Theme-Examples.zip)
+![Do this...](examples/Instructions.gif)
+
+To get the archive, click [here](examples/Theme-Examples.zip) and then click the "Download Raw File" icon at right.
+
+
 
 ---
 ## MIT License
