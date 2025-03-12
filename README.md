@@ -16,17 +16,13 @@ For usage, refer to this example program and Go Doc comments.
 [Example Program](examples/main.go)
 
 ## Supported Themes
-[Light Outlined Theme (default)](examples/Boolog%20Example%20-%20Light%20Outlined.html)
 
-[Classic Theme (default)](examples/Boolog%20Example%20-%20Light%20Classic.html)
+[Themes Poster (GIF)](examples/Poster.gif)
 
-[Light Flat Theme (default)](examples/Boolog%20Example%20-%20Light%20Flat.html)
+GitHub won't let me directly link to the HTML examples showing each theme (it forces it to resolve as HTML source code).
+Instead, I've bundled the examples into a ZIP archive that you can preview on your computer.
 
-[Dark Theme (default)](examples/Boolog%20Example%20-%20Dark.html)
-
-[Dark Flat Theme (default)](examples/Boolog%20Example%20-%20Dark%20Flat.html)
-
-[Dark Gradient Theme (default)](examples/Boolog%20Example%20-%20Dark%20Gradient.html)
+[Download a ZIP with HTML Examples of all themes](examples/Theme-Examples.zip)
 
 ---
 ## MIT License
