@@ -21,7 +21,6 @@
 
 package boolog
 
-// TODO : WORK IN PROGRESS
 const THEME_DARK_FLAT = `
     <style>
         html {

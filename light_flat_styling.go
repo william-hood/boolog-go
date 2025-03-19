@@ -21,7 +21,6 @@
 
 package boolog
 
-// TODO
 const THEME_LIGHT_FLAT = `
     <style>
         html {
