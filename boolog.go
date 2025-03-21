@@ -236,7 +236,7 @@ func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFun
 		result.forHTML = hTML
 
 		if theme == "" {
-			theme = THEME_LIGHT_OUTLINED
+			theme = THEME_LIGHT
 		}
 
 		result.forHTML.WriteString(fmt.Sprintf("<html>\r\n<meta charset=\"UTF-8\">\r\n<head>\r\n<title>%s</title>\r\n", result.Title))

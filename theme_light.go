@@ -21,7 +21,7 @@
 
 package boolog
 
-const THEME_LIGHT_OUTLINED = `
+const THEME_LIGHT = `
     <style>
         html {
             font-family: sans-serif
