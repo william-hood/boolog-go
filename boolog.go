@@ -109,7 +109,7 @@ func (this *Boolog) Conclude() string {
 		this.echoPlainText("", EMOJI_TEXT_BOOLOG_CONCLUDE, timestamp)
 		this.echoPlainText("", EMOJI_TEXT_BLANK_LINE, timestamp)
 
-		if this.forPlainText != os.Stdin {
+		if this.forPlainText != os.Stdout {
 			this.forPlainText.Sync()
 			this.forPlainText.Close()
 		}
