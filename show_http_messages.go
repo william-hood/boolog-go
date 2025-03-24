@@ -46,7 +46,7 @@ func (this *Boolog) ShowHttpRequest(req http.Request, callback CallbackFunction)
 
 	textRendition := fmt.Sprintf("%s %s", req.Method, reqUrl.Path)
 
-	result.WriteString(fmt.Sprintf("<center><h2>%sn</h2>", textRendition))
+	result.WriteString(fmt.Sprintf("<center><h2>%s</h2>", textRendition))
 	result.WriteString(fmt.Sprintf("<small><b><i>%s</i></b></small>", reqUrl.Host))
 
 	// Hide the full URL
