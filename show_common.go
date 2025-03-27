@@ -23,8 +23,6 @@ package boolog
 
 import (
 	"fmt"
-	"reflect"
-	"slices"
 	"strings"
 	"time"
 
@@ -33,6 +31,7 @@ import (
 
 var nonRecurseTypes = []string{"string", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr", "bool", "byte", "rune", "float32", "float64", "complex64", "complex128"}
 
+/*
 func shouldRecurse(candidate any) bool {
 	if candidate == nil {
 		return false
@@ -46,6 +45,7 @@ func shouldRecurse(candidate any) bool {
 }
 
 // shouldRender() from the Kotlin version probably doesn't apply here as unexported fields are not visible to reflection in Go.
+*/
 
 func (this *Boolog) beginShow(timestamp time.Time, typeName string, variableName string, style string, recurseLevel int) *strings.Builder {
 	result := new(strings.Builder)

@@ -81,7 +81,7 @@ const THEME_LIGHT = `
         }
 
         .plate {
-            background-color: WhiteBlue;
+            background-color: #DBE9FA;
         }
 
         .exception {

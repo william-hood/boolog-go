@@ -148,7 +148,7 @@ func (this *Boolog) InfoDetailed(message string, emoji string) error {
 // Use this to output a highlighted debugging message. The HTML output will highlight the text in yellow (or orange, depending on the theme used). Both HTML and Plaintext will output the line with a debugging emoji icon.
 func (this *Boolog) Debug(message string) error {
 	timestamp := time.Now()
-	htmlErr := this.writeToHTML(highlight(message), EMOJI_DEBUG, timestamp)
+	htmlErr := this.writeToHTML(Highlight(message), EMOJI_DEBUG, timestamp)
 	if htmlErr != nil {
 		return htmlErr
 	}
@@ -159,7 +159,7 @@ func (this *Boolog) Debug(message string) error {
 // Use this to output a highlighted error message. The HTML output will highlight the text in yellow (or orange, depending on the theme used). Both HTML and Plaintext will output the line with an error emoji icon.
 func (this *Boolog) Error(message string) error {
 	timestamp := time.Now()
-	htmlErr := this.writeToHTML(highlight(message), EMOJI_ERROR, timestamp)
+	htmlErr := this.writeToHTML(Highlight(message), EMOJI_ERROR, timestamp)
 	if htmlErr != nil {
 		return htmlErr
 	}
@@ -253,6 +253,7 @@ func NewBoologDetailed(logTitle string, htmlOutputFileName string, htmlHeaderFun
 	return *result
 }
 
+// Pass this function in for the header function when creating a Boolog. This will use the standard, default header. You may also use nil or you may write your own.
 func defaultHeader(title string) string {
 	var builder strings.Builder
 	builder.WriteString("<h1>")
@@ -264,7 +265,8 @@ func defaultHeader(title string) string {
 	return builder.String()
 }
 
-func highlight(message string) string {
+// Use this to highlight a message and send the result through the .Info() method. The HTML output will highlight the text in yellow (or orange, depending on the theme used).
+func Highlight(message string) string {
 	var builder strings.Builder
 
 	builder.WriteString("<p class=\"highlighted outlined\">&nbsp;")

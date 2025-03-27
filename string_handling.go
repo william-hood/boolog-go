@@ -29,6 +29,7 @@ import (
 // Type CallbackFunction can be used to allow additional processing for strings passed through Boolog. Example uses would be JSON Pretty-Printing or Base64 decoding.
 type CallbackFunction func(string, string) string
 
+// Pass the result of this to .Info() (or any other method that outputs to HTML) and the text will show as a monospace font, keeping any line breaks or other formatting used.
 func TreatAsCode(value string) string {
 	return fmt.Sprintf("<pre><code><xmp>%s</xmp></code></pre>", value)
 }
