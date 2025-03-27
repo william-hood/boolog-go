@@ -85,7 +85,7 @@ func sublog() boolog.Boolog {
 	subLog.Info("Again today...")
 	subLog.SkipLine()
 	subLog.Error("Gee, I wish he'd go away!")
-	log.ShowBoologDetailed(subLog, boolog.EMOJI_BOOLOG, "neutral", 0)
+	log.ShowBoologDetailed(subLog, boolog.EMOJI_BOOLOG, "passing_test_result", 0)
 
 	return log
 }
