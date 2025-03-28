@@ -11,7 +11,7 @@ import (
 
 func main() {
 	userHome, _ := os.UserHomeDir()
-	rootLogPath := filepath.Join(userHome, "Documents", "Test Results", "Boolog Example.html")
+	rootLogPath := filepath.Join(userHome, "Documents", "Test Results", "Boolog Go Example.html")
 	log := boolog.NewBoolog("Boolog Golang Example", rootLogPath, boolog.THEME_LIGHT)
 
 	log.Info("Boolog is an HTML-based rich logging system capable of visual renditions of HTTP requests & responses, errors, and any other struct or type. One Boolog instance can even embed another as a log subsection.")
