@@ -1,7 +1,14 @@
 # BOOLOG
+
+*Rust version [here](https://github.com/william-hood/boolog-rust)*
+
+*Kotlin Version [here](https://github.com/william-hood/boolog-kotlin)*
+
+*Java & JUnit versions (coming soon)*
+<hr>
 <img align="left" src="examples/boolog-logo-sm.gif">
 
-**Rich Logging System**
+**Boolog Rich Logging System - Direct-to-HTML**
 
 Boolog allows your Go program to log directly to an HTML file. This will help developers and managers alike better
 visualize what goes on with back-end processes, such as a cloud service or a test suite against REST API calls.
