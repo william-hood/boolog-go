@@ -1,10 +1,13 @@
-# BOOLOG
-
-*Rust version [here](https://github.com/william-hood/boolog-rust)*
+# BOOLOG for Golang
 
 *Kotlin Version [here](https://github.com/william-hood/boolog-kotlin)*
 
-*Java & JUnit versions (coming soon)*
+*Java version [here](https://github.com/william-hood/boolog-java)*
+
+*JUnit Testing version [here](https://github.com/william-hood/boolog-junit)*
+
+*Rust version [here](https://github.com/william-hood/boolog-rust)*
+
 <hr>
 <img align="left" src="examples/boolog-logo-sm.gif">
 
