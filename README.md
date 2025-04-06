@@ -25,6 +25,8 @@ For usage, refer to this example program and Go Doc comments.
 
 [Example Program](examples/main.go)
 
+*If you run the example code on your system, expect the actual log file to appear in `(User Home)/Documents/Test Results`.*
+
 ## Supported Themes
 
 [Themes Poster (GIF)](examples/Poster.gif)
